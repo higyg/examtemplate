@@ -1,12 +1,14 @@
 # examanswersheet
 三种试卷样式。
+
 适用于日常教学考试，日常中考模拟，以及标准中考模拟。
-对应的适用方法是\mifengxian，\datikaa，\datikab。
+
+对应的适用方法是\mifengxian。删除，\datikaa，\datikab
 
 # 试卷样式暂时搁置
 
 ## 准备上传xelatex 中文模板
 
-可以调用本地字体
+Ctexart文档类, 可以把本地字体文件放在fonts文件夹里面, 复制下字体文件名就能调用.
 
-Ctexart文档类
+### 下一阶段准备上传电子书, 关于初中数学, 北师大版各单元的专题训练册子.

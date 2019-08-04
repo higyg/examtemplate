@@ -1,0 +1,29 @@
+% \usepackage{xeCJK}
+\newcommand*{\fontdir}[1][fonts/]{\def\@fontdir{#1}}
+\fontdir
+% \renewcommand{\kaishu}{\relax}
+\newCJKfontfamily\kai[
+  Path={fonts/},
+UprightFont=*,
+]{kaiti_GB2312.ttf}
+
+\newCJKfontfamily\biaosong[
+  Path={fonts/},
+UprightFont=*,
+]{FZXBSJW.ttf}
+
+\newCJKfontfamily\TimesNewRoman[
+Path={fonts/},
+UprightFont=*,
+ItalicFont=*i,
+BoldFont=*bd,
+BoldItalicFont=*bi,
+]{times.ttf}
+
+\setmainfont[
+Path={fonts/},
+UprightFont=*,
+ItalicFont=*i,
+BoldFont=*bd,
+BoldItalicFont=*bi,
+]{times.ttf}

@@ -1,0 +1,45 @@
+\newcommand*{\mifengxian}{%
+\geometry{b4paper,twocolumn,landscape,hmargin={3.5cm,1cm},vmargin={1.5cm,1.5cm},footskip=0.75cm,headsep=0.25cm}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\setlength{\columnseprule}{0.4pt}
+\fancyfoot[CE,CO]{$-$\thepage$-$}
+\fancyhead[CE,CO]{\mifengxianaaa}
+}
+
+\newcommand*{\mifengxianaaa}{%
+\ifthenelse{\isodd{\value{page}}}%判断是否奇数页
+{%B4正面密封线、座号
+\begin{tikzpicture}[remember picture,overlay]
+\path 	(current page.south east) coordinate (a0);
+%定义右下角座号坐标
+\draw 	(a0)[shift={(-2.5,0.83)}] node (a1) [draw=black,fill=gray!0,minimum height=1cm,minimum width=1cm]{\kaishu{}座号}
+		(a1) node [right=0.5cm,draw=black,fill=gray!0,minimum height=1cm,minimum width=1cm]{};
+\path 	(current page.west) coordinate (a0);
+\draw 	(a0)[shift={(1.2,0)}] node (a1) [rotate=90,fill=gray!0,minimum height=1cm,minimum width=1cm]
+		{\kaishu{}\zihao{4}
+		学校\raisebox{-2pt}{\rule{35mm}{0.4pt}}%
+		班级\raisebox{-2pt}{\rule{35mm}{0.4pt}}%
+		姓名\raisebox{-2pt}{\rule{35mm}{0.4pt}}%
+		考场\raisebox{-2pt}{\rule{35mm}{0.4pt}}%
+		考号\raisebox{-2pt}{\rule{35mm}{0.4pt}}}
+		(a1)[shift={(1.5,0)}] node [rotate=90,fill=gray!0,minimum height=1cm,minimum width=1cm]
+		{\kaishu{}\zihao{4}...........................................%
+		\raisebox{-0.6ex}{装}............................................%
+		\raisebox{-0.6ex}{订}............................................%
+		\raisebox{-0.6ex}{线}...........................................};
+\end{tikzpicture}
+}
+{%B4反面装订线
+\begin{tikzpicture}[remember picture,overlay]
+\path 	(current page.east) coordinate (a0);
+\draw 	(a0)[shift={(-2.7,0)}] node [rotate=-90,fill=gray!0,minimum height=1cm,minimum width=1cm]
+		{\kaishu{}\zihao{4}...........................................%
+		\raisebox{-0.6ex}{装}............................................%
+		\raisebox{-0.6ex}{订}............................................%
+		\raisebox{-0.6ex}{线}...........................................};
+\end{tikzpicture}
+}
+}
+
+

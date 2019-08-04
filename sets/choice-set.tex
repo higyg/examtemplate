@@ -1,0 +1,221 @@
+%括号不断开,不放行首
+\newcommand{\kh}{\unskip\nobreak\hfill\relpenalty=700\makebox[9.1mm][l]{(\qquad)}}
+
+% 两个选项时 \xx{1}{2}
+% 三个选项时 \xx{1}{2}{3}
+% ...
+% 五个选项时 \xx{1}{2}{3}{4}{5}
+
+\usepackage{ifthen}
+% \usepackage{enumitem}
+
+\newlength{\testxxla}
+\newlength{\testxxlb}
+\newlength{\testxxlc}
+\newlength{\testxxld}
+\newlength{\testxxle}
+\newlength{\lhalf}
+\newlength{\ltrisect}
+\newlength{\lquarter}
+\newlength{\lfifth}
+\newlength{\lmax}
+
+%-----------------------------------------------------------------------------%
+% 无标签的两选项，输出方式：一行二选项
+%-----------------------------------------------------------------------------%
+\newcommand{\testtwo}[2]
+{%\par\noindent%
+    \settowidth{\testxxla}{A.~#1~~~}
+    \settowidth{\testxxlb}{B.~#2~~~}
+	 \ifthenelse{\lengthtest{\testxxla>\testxxlb}}{\setlength{\lmax}{\testxxla}}{\setlength{\lmax}{\testxxlb}}
+	\setlength{\lhalf}{0.47\linewidth}%
+	\ifthenelse{\lengthtest{\lmax>\lhalf}}
+    {
+        \begin{enumerate}[label=\Alph*.,parsep=0ex,itemsep=0ex,leftmargin=6mm, topsep=0ex]
+            \item #1
+            \item #2
+        \end{enumerate}
+    }
+	{
+	\makebox[\lhalf][l]{A.~#1~~~}%
+	\makebox[\lhalf][l]{B.~#2~~~}%
+	}
+}
+%-----------------------------------------------------------------------------%
+% 四选项，根据选项的长度自动判断输出方式：一行一选项，一行二选项，一行四选项
+%-----------------------------------------------------------------------------%
+\newcommand{\testxxfour}[4]
+{
+    % \par
+    \settowidth{\testxxla}{A.~#1~~~}
+    \settowidth{\testxxlb}{B.~#2~~~}
+    \settowidth{\testxxlc}{C.~#3~~~}
+    \settowidth{\testxxld}{D.~#4~~~}
+    \ifthenelse{\lengthtest{\testxxla>\testxxlb}}{\setlength{\lmax}{\testxxla}}{\setlength{\lmax}{\testxxlb}}
+    \ifthenelse{\lengthtest{\testxxlc>\lmax}}{\setlength{\lmax}{\testxxlc}}{}
+    \ifthenelse{\lengthtest{\testxxld>\lmax}}{\setlength{\lmax}{\testxxld}}{}
+    \setlength{\lhalf}{0.47\linewidth}
+    \setlength{\lquarter}{0.23\linewidth}
+    \ifthenelse{\lengthtest{\lmax>\lhalf}}
+    {%\vspace*{-4mm}
+        \begin{enumerate}[label=\Alph*.,parsep=0ex,itemsep=0ex,leftmargin=6mm, topsep=0ex]
+            \item #1
+            \item #2
+            \item #3
+            \item #4
+        \end{enumerate}
+    }
+    {
+        \ifthenelse{\lengthtest{\lmax>\lquarter}}
+        {
+            \noindent%
+            \makebox[\lhalf][l]{A.~#1~~~}%
+            \makebox[\lhalf][l]{B.~#2~~~}%
+            \par\noindent%
+            \makebox[\lhalf][l]{C.~#3~~~}%
+            \makebox[\lhalf][l]{D.~#4~~~}%
+        }%
+        {
+            \noindent%
+            \makebox[\lquarter][l]{A.~#1~~~}%
+            \makebox[\lquarter][l]{B.~#2~~~}%
+            \makebox[\lquarter][l]{C.~#3~~~}%
+            \makebox[\lquarter][l]{D.~#4~~~}%
+        }
+    }
+}
+%-----------------------------------------------------------------------------%
+% 五选项，根据选项的长度自动判断输出方式：一行一选项，一行二选项，一行四选项
+%-----------------------------------------------------------------------------%
+\newcommand{\testxxfive}[5]
+{
+    \par
+    \settowidth{\testxxla}{A.~#1~~~}
+    \settowidth{\testxxlb}{B.~#2~~~}
+    \settowidth{\testxxlc}{C.~#3~~~}
+    \settowidth{\testxxld}{D.~#4~~~}
+    \settowidth{\testxxle}{E.~#5~~~}
+    \ifthenelse{\lengthtest{\testxxla>\testxxlb}}{\setlength{\lmax}{\testxxla}}{\setlength{\lmax}{\testxxlb}}
+    \ifthenelse{\lengthtest{\testxxlc>\lmax}}{\setlength{\lmax}{\testxxlc}}{}
+    \ifthenelse{\lengthtest{\testxxld>\lmax}}{\setlength{\lmax}{\testxxld}}{}
+    \ifthenelse{\lengthtest{\testxxle>\lmax}}{\setlength{\lmax}{\testxxle}}{}
+    \setlength{\lhalf}{0.47\linewidth}
+    \setlength{\ltrisect}{0.31\linewidth}
+    \setlength{\lquarter}{0.23\linewidth}
+    \setlength{\lfifth}{0.18\linewidth}
+    \ifthenelse{\lengthtest{\lmax>\lhalf}}
+    {
+        \begin{enumerate}[label=\Alph*.,parsep=0ex,itemsep=0ex,leftmargin=6mm, topsep=0ex]
+            \item #1
+            \item #2
+            \item #3
+            \item #4
+            \item #5
+        \end{enumerate}
+    }
+    {
+        \ifthenelse{\lengthtest{\lmax>\ltrisect}}
+        {\kh
+            \noindent%
+            \makebox[\lhalf][l]{A.~#1~~~}%
+            \makebox[\lhalf][l]{B.~#2~~~}%
+            \par\noindent%
+            \makebox[\lhalf][l]{C.~#3~~~}%
+            \makebox[\lhalf][l]{D.~#4~~~}%
+            \par\noindent%
+            \makebox[\lhalf][l]{E.~#5~~~}%
+            \makebox[\lhalf][l]{}%
+        }
+        {
+            \ifthenelse{\lengthtest{\lmax>\lquarter}}
+            {\kh
+                \noindent%
+                \makebox[\ltrisect][l]{A.~#1~~~}%
+                \makebox[\ltrisect][l]{B.~#2~~~}%
+                \makebox[\ltrisect][l]{C.~#3~~~}%
+                \par\noindent%
+                \makebox[\ltrisect][l]{D.~#4~~~}%
+                \makebox[\ltrisect][l]{E.~#5~~~}%
+                \makebox[\ltrisect][l]{}%
+            }
+            {
+                \ifthenelse{\lengthtest{\lmax>\lfifth}}
+                {
+                    \noindent%
+                    \makebox[\lquarter][l]{A.~#1~~~}%
+                    \makebox[\lquarter][l]{B.~#2~~~}%
+                    \makebox[\lquarter][l]{C.~#3~~~}%
+                    \makebox[\lquarter][l]{D.~#4~~~}%
+                    \par\noindent%
+                    \makebox[\lquarter][l]{E.~#5~~~}%
+                    \makebox[\lquarter][l]{}%
+                    \makebox[\lquarter][l]{}%
+                    \makebox[\lquarter][l]{}%
+                }
+                {
+                    \noindent%
+                    \makebox[\lfifth][l]{A.~#1~~~}%
+                    \makebox[\lfifth][l]{B.~#2~~~}%
+                    \makebox[\lfifth][l]{C.~#3~~~}%
+                    \makebox[\lfifth][l]{D.~#4~~~}%
+                    \makebox[\lfifth][l]{E.~#5~~~}%
+                }
+            }
+        }
+    }
+}
+%-----------------------------------------------------------------------------%
+% 三选项，根据选项的长度自动判断输出方式：一行一选项，一行二选项，一行三选项
+%-----------------------------------------------------------------------------%
+\newcommand{\testxxthree}[3]
+{
+    \par
+    \settowidth{\testxxla}{A.~#1~~~}
+    \settowidth{\testxxlb}{B.~#2~~~}
+    \settowidth{\testxxlc}{C.~#3~~~}
+    \ifthenelse{\lengthtest{\testxxla>\testxxlb}}{\setlength{\lmax}{\testxxla}}{\setlength{\lmax}{\testxxlb}}
+    \ifthenelse{\lengthtest{\testxxlc>\lmax}}{\setlength{\lmax}{\testxxlc}}{}
+    \setlength{\lhalf}{0.47\linewidth}
+    \setlength{\ltrisect}{0.31\linewidth}
+    \ifthenelse{\lengthtest{\lmax>\lhalf}}
+    {
+        \begin{enumerate}[label=\Alph*.,parsep=0ex,itemsep=0ex,leftmargin=6mm, topsep=0ex]
+            \item #1
+            \item #2
+            \item #3
+        \end{enumerate}
+    }
+    {
+        \ifthenelse{\lengthtest{\lmax>\ltrisect}}
+        {
+            \noindent%
+            \makebox[\lhalf][l]{A.~#1~~~}%
+            \makebox[\lhalf][l]{B.~#2~~~}%
+            \par\noindent%
+            \makebox[\lhalf][l]{C.~#3~~~}%
+        }%
+        {
+            \noindent%
+            \makebox[\ltrisect][l]{A.~#1~~~}%
+            \makebox[\ltrisect][l]{B.~#2~~~}%
+            \makebox[\ltrisect][l]{C.~#3~~~}%
+        }
+    }
+}
+
+
+\makeatletter
+\newcommand{\xx@i}[2]{\testtwo{#1}{#2}}
+\newcommand{\xx@ii}[3]{\testxxthree{#1}{#2}{#3}}
+\newcommand{\xx@iii}[4]{\testxxfour{#1}{#2}{#3}{#4}}
+\newcommand{\xx@iv}[5]{\testxxfive{#1}{#2}{#3}{#4}{#5}}
+\newcommand{\xx@iii@helper}[4]{%
+	\@ifnextchar\bgroup
+	{\xx@iv{#1}{#2}{#3}{#4}}{\xx@iii{#1}{#2}{#3}{#4}}}
+\newcommand{\xx@ii@helper}[3]{%
+	\@ifnextchar\bgroup
+	{\xx@iii@helper{#1}{#2}{#3}}{\xx@ii{#1}{#2}{#3}}}
+\newcommand{\xx}[2]{%
+	\hfill\kh\par\@ifnextchar\bgroup
+	{\xx@ii@helper{#1}{#2}}{\xx@i{#1}{#2}}}
+\makeatother
